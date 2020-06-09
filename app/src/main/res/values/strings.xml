@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">BMI</string>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="activity_array">
+        <item>No Exercise</item>
+        <item>Light Exercise (1–3 days per week)</item>
+        <item>Moderate Exercise (3–5 days per week)</item>
+        <item>Heavy Exercise (6–7 days per week)</item>
+        <item>Very Heavy Exercise (Twice per day)</item>
+    </string-array>
 </resources>

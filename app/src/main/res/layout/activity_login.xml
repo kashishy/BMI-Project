@@ -6,22 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="70dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/ic_launcher"
+                        android:contentDescription="Logo">
+                    </ImageView>
 
             </LinearLayout>
 
@@ -29,62 +36,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="3"
-                android:paddingRight="30dp"
-                android:paddingLeft="30dp">
+                android:layout_weight="1"
+                android:padding="30dp">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Email"
-                    android:background="#ffffff"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
-                    android:inputType="textEmailAddress"
-                    android:id="@+id/user_email_id">
-                </EditText>
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp">
 
-                <EditText
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:ems="10"
+                        android:inputType="textEmailAddress"
+                        android:id="@+id/user_email_id"
+                        android:autofillHints="" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Password"
-                    android:background="#ffffff"
+                    android:layout_height="50dp"
                     android:layout_margin="5dp"
-                    android:padding="5dp"
-                    android:inputType="textPassword"
-                    android:id="@+id/user_password_id">
-                </EditText>
+                    app:passwordToggleEnabled="true">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Password"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:ems="10"
+                            android:inputType="textPassword"
+                            android:id="@+id/user_password_id"
+                            android:autofillHints="" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Login"
+                    android:layout_margin="5dp"
+                    android:id="@+id/loginButton_id">
+                </Button>
+
+                <TextView
+                    android:id="@+id/signup_login_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No account yet? Create one."
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_margin="5dp">
+                </TextView>
             </LinearLayout>
 
-
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="2"
-            android:padding="30dp">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:textColor="#ffffff"
-                android:layout_margin="5dp"
-                android:id="@+id/loginButton">
-            </Button>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Signup"
-                android:textColor="#ffffff"
-                android:layout_margin="5dp">
-            </Button>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progressBar_id"
@@ -93,5 +104,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:backgroundTint="@color/cardview_shadow_start_color"
         android:visibility="invisible"/>
 </RelativeLayout>

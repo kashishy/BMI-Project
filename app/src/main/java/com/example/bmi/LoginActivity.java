@@ -3,14 +3,17 @@ package com.example.bmi;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userPassword;
     private Button loginButton;
     private ProgressBar progressBar;
+    private TextView signupText;
 
 
     @Override
@@ -37,8 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userEmail = findViewById(R.id.user_email_id);
         userPassword = findViewById(R.id.user_password_id);
-        loginButton = findViewById(R.id.loginButton);
+        loginButton = findViewById(R.id.loginButton_id);
         progressBar = findViewById(R.id.progressBar_id);
+        signupText = findViewById(R.id.signup_login_id);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,12 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, "Authentication successful.",
                                                 Toast.LENGTH_SHORT).show();
                                         FirebaseUser user = mAuth.getCurrentUser();
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
                                         //updateUI(user);
                                     } else {
                                         progressBar.setVisibility(View.INVISIBLE);
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.makeText(LoginActivity.this, "Authentication failed. " +task.getException().getMessage(),
                                                 Toast.LENGTH_SHORT).show();
                                         //updateUI(null);
                                     }
@@ -73,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+        signupText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }
