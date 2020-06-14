@@ -31,14 +31,15 @@ import java.util.zip.DeflaterOutputStream;
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private View view;
-    private Spinner activitySpinner;
-    private TextView bmrText, totalEnergyText, perdayCalText, todayCalText;
+    //private Spinner activitySpinner;
+    //private TextView bmrText, totalEnergyText, perdayCalText, todayCalText, activityLevelText;
     private EditText genderText, ageText, weightText, heightText;
+    private EditText bmrText, totalEnergyText, perdayCalText, activityLevelText, todayCalText;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference userDataReference, perdayCalorieReference, todayCalorieReference;
+    private DatabaseReference userDataReference, perdayCalorieReference, todayCalorieReference, activityLevelReference;
     private int selectedItem;
     private static String TAG = "Home Fragment : ";
-    private String gender, perdayCalorie, todayCalorie;
+    private String gender, perdayCalorie, todayCalorie, activityLevel;
     private double weight, height;
     private int age;
     private ProgressBar progressBar;
@@ -56,13 +57,15 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         Initialised();
 
-        userDataReference.keepSynced(true);
-        perdayCalorieReference.keepSynced(true);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+        //userDataReference.keepSynced(true);
+        //perdayCalorieReference.keepSynced(true);
+        //activityLevelReference.keepSynced(true);
+        //todayCalorieReference.keepSynced(true);
+        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.activity_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activitySpinner.setAdapter(adapter);
-        activitySpinner.setOnItemSelectedListener(this);
+        activitySpinner.setOnItemSelectedListener(this);*/
 
         RetrieveData();
 
@@ -70,7 +73,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     public void Initialised() {
 
-        activitySpinner = view.findViewById(R.id.activitySpinner_home_frag_id);
+        //activitySpinner = view.findViewById(R.id.activitySpinner_home_frag_id);
+        activityLevelText = view.findViewById(R.id.activityLevel_home_frag_id);
         bmrText = view.findViewById(R.id.bmr_home_frag_id);
         totalEnergyText = view.findViewById(R.id.totalenergy_home_frag_id);
         progressBar = view.findViewById(R.id.progressBar_home_frag_id);
@@ -85,11 +89,39 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         userDataReference = FirebaseDatabase.getInstance().getReference("users_data").child(firebaseAuth.getCurrentUser().getUid());
         perdayCalorieReference = FirebaseDatabase.getInstance().getReference("perday_calorie");
         todayCalorieReference = FirebaseDatabase.getInstance().getReference("today_calorie");
+        activityLevelReference = FirebaseDatabase.getInstance().getReference("activity_level");
     }
 
     public void RetrieveData()
     {
         progressBar.setVisibility(View.VISIBLE);
+
+        activityLevelReference.child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists())
+                {
+                    Log.d(TAG, "In activity level");
+                    //activityLevel = dataSnapshot.child("activity").getValue().toString().trim();
+                    selectedItem = Integer.parseInt(dataSnapshot.child("activity").getValue().toString().trim());
+                    String[] levels = getResources().getStringArray(R.array.activity_array);
+                    activityLevel = levels[selectedItem];
+                }
+                else
+                {
+                    Log.d(TAG, "In activity level not present");
+                    activityLevel = "Not Recorded";
+                }
+                activityLevelText.setText(activityLevel);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         userDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -119,6 +151,32 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             }
         });
 
+        /*activityLevelReference.child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists())
+                {
+                    Log.d(TAG, "In activity level");
+                    //activityLevel = dataSnapshot.child("activity").getValue().toString().trim();
+                    int selectedLevel = Integer.parseInt(dataSnapshot.child("activity").getValue().toString().trim());
+                    String[] levels = getResources().getStringArray(R.array.activity_array);
+                    activityLevel = levels[selectedLevel];
+                }
+                else
+                {
+                    Log.d(TAG, "In activity level not present");
+                    activityLevel = "Not Recorded";
+                }
+                activityLevelText.setText(activityLevel);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
         perdayCalorieReference.child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -133,7 +191,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     Log.d(TAG, "In perday calorie intake not present");
                     perdayCalorie = "Not Recorded";
                 }
-                perdayCalText.setText(perdayCalorie);
+                perdayCalText.setText(perdayCalorie+" kcal");
             }
 
             @Override
@@ -154,7 +212,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 {
                     todayCalorie = "Not Recorded";
                 }
-                todayCalText.setText(todayCalorie);
+                todayCalText.setText(todayCalorie+" kcal");
             }
 
             @Override
@@ -227,8 +285,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         ageText.setText(String.format("%1$s",age));
         weightText.setText(String.format("%1$sKg", weight));
         heightText.setText(String.format("%1$scm",height));
-        bmrText.setText(String.format("%1$s", bmr));
-        totalEnergyText.setText(String.format("%1$s", calorie));
+        bmrText.setText(String.format("%1$s  kcal/day", bmr));
+        totalEnergyText.setText(String.format("%1$s kcal/day", calorie));
         //perdayCalText.setText(perdayCalorie);
         //todayCalText.setText(todayCalorie);
 
@@ -238,7 +296,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String activityLevel = parent.getItemAtPosition(position).toString();
-        selectedItem = position;
+        //selectedItem = position;
     }
 
     @Override
