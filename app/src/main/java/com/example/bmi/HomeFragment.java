@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Locale;
 import java.util.zip.DeflaterOutputStream;
 
-public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class HomeFragment extends Fragment {
 
     private View view;
     //private Spinner activitySpinner;
@@ -37,12 +37,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private EditText bmrText, totalEnergyText, perdayCalText, activityLevelText, todayCalText;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userDataReference, perdayCalorieReference, todayCalorieReference, activityLevelReference;
-    private int selectedItem;
+    private int selectedItem = -1;
     private static String TAG = "Home Fragment : ";
     private String gender, perdayCalorie, todayCalorie, activityLevel;
     private double weight, height;
     private int age;
     private ProgressBar progressBar;
+    private String[] levels = {"No Exercise", "Light Exercise", "Moderate Exercise", "Exercise", "Heavy Exercise"};
 
     @Nullable
     @Override
@@ -57,15 +58,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         Initialised();
 
-        //userDataReference.keepSynced(true);
-        //perdayCalorieReference.keepSynced(true);
-        //activityLevelReference.keepSynced(true);
-        //todayCalorieReference.keepSynced(true);
-        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.activity_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        activitySpinner.setAdapter(adapter);
-        activitySpinner.setOnItemSelectedListener(this);*/
+        userDataReference.keepSynced(true);
+        perdayCalorieReference.keepSynced(true);
+        activityLevelReference.keepSynced(true);
+        todayCalorieReference.keepSynced(true);
 
         RetrieveData();
 
@@ -73,7 +69,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     public void Initialised() {
 
-        //activitySpinner = view.findViewById(R.id.activitySpinner_home_frag_id);
         activityLevelText = view.findViewById(R.id.activityLevel_home_frag_id);
         bmrText = view.findViewById(R.id.bmr_home_frag_id);
         totalEnergyText = view.findViewById(R.id.totalenergy_home_frag_id);
@@ -105,7 +100,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     Log.d(TAG, "In activity level");
                     //activityLevel = dataSnapshot.child("activity").getValue().toString().trim();
                     selectedItem = Integer.parseInt(dataSnapshot.child("activity").getValue().toString().trim());
-                    String[] levels = getResources().getStringArray(R.array.activity_array);
+                    //String[] levels = getResources().getStringArray(R.array.activity_array);
                     activityLevel = levels[selectedItem];
                 }
                 else
@@ -151,32 +146,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             }
         });
 
-        /*activityLevelReference.child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if(dataSnapshot.exists())
-                {
-                    Log.d(TAG, "In activity level");
-                    //activityLevel = dataSnapshot.child("activity").getValue().toString().trim();
-                    int selectedLevel = Integer.parseInt(dataSnapshot.child("activity").getValue().toString().trim());
-                    String[] levels = getResources().getStringArray(R.array.activity_array);
-                    activityLevel = levels[selectedLevel];
-                }
-                else
-                {
-                    Log.d(TAG, "In activity level not present");
-                    activityLevel = "Not Recorded";
-                }
-                activityLevelText.setText(activityLevel);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
         perdayCalorieReference.child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -184,14 +153,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 if(dataSnapshot.exists())
                 {
                     Log.d(TAG, "In perday calorie intake");
-                    perdayCalorie = dataSnapshot.child("calorie").getValue().toString().trim();
+                    perdayCalorie = dataSnapshot.child("calorie").getValue().toString().trim() + " kcal";
                 }
                 else
                 {
                     Log.d(TAG, "In perday calorie intake not present");
                     perdayCalorie = "Not Recorded";
                 }
-                perdayCalText.setText(perdayCalorie+" kcal");
+                perdayCalText.setText(perdayCalorie);
             }
 
             @Override
@@ -206,13 +175,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
                 if(dataSnapshot.exists())
                 {
-                    todayCalorie = dataSnapshot.child("calorie").getValue().toString().trim();
+                    todayCalorie = dataSnapshot.child("calorie").getValue().toString().trim() + " kcal";
                 }
                 else
                 {
                     todayCalorie = "Not Recorded";
                 }
-                todayCalText.setText(todayCalorie+" kcal");
+                todayCalText.setText(todayCalorie);
             }
 
             @Override
@@ -252,27 +221,34 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         //Toast.makeText(getContext(), "Before Calorie Calculate "+selectedItem, Toast.LENGTH_SHORT).show();
         double activityFactor = 0.0;
 
-        if(selectedItem == 0)
+        if(selectedItem == -1)
         {
-            activityFactor = 1.2;
+            return 0.0;
         }
-        else if(selectedItem == 1)
+        else
         {
-            activityFactor = 1.375;
-        }
-        else if(selectedItem == 2)
-        {
-            activityFactor = 1.55;
-        }
-        else if(selectedItem == 3)
-        {
-            activityFactor = 1.725;
-        }
-        else if(selectedItem == 4)
-        {
-            activityFactor = 1.9;
-        }
+            if(selectedItem == 0)
+            {
+                activityFactor = 1.2;
+            }
+            else if(selectedItem == 1)
+            {
+                activityFactor = 1.375;
+            }
+            else if(selectedItem == 2)
+            {
+                activityFactor = 1.55;
+            }
+            else if(selectedItem == 3)
+            {
+                activityFactor = 1.725;
+            }
+            else if(selectedItem == 4)
+            {
+                activityFactor = 1.9;
+            }
 
+        }
         double calorie = bmr * activityFactor;
         //Toast.makeText(getContext(), "After BMR Calculate "+ calorie, Toast.LENGTH_SHORT).show();
         return calorie;
@@ -286,21 +262,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         weightText.setText(String.format("%1$sKg", weight));
         heightText.setText(String.format("%1$scm",height));
         bmrText.setText(String.format("%1$s  kcal/day", bmr));
-        totalEnergyText.setText(String.format("%1$s kcal/day", calorie));
-        //perdayCalText.setText(perdayCalorie);
-        //todayCalText.setText(todayCalorie);
-
+        if(calorie == 0)
+        {
+            totalEnergyText.setText("Not Recorded");
+        }
+        else
+        {
+            totalEnergyText.setText(String.format("%1$s kcal/day", calorie));
+        }
         //Toast.makeText(getContext(), "After Update UI", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String activityLevel = parent.getItemAtPosition(position).toString();
-        //selectedItem = position;
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

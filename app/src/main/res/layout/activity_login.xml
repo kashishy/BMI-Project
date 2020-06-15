@@ -18,15 +18,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="300dp"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:padding="70dp">
+                android:gravity="center">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/app_logo"
                         android:contentDescription="Logo">
                     </ImageView>
 
@@ -36,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="1"
+                android:gravity="center"
                 android:padding="30dp">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -83,6 +82,16 @@
                 </Button>
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Forgot Password?"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/passwordReset_login_id">
+                </TextView>
+
+                <TextView
                     android:id="@+id/signup_login_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,4 +115,12 @@
         android:layout_centerVertical="true"
         android:backgroundTint="@color/cardview_shadow_start_color"
         android:visibility="invisible"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_layout_login_id"
+        android:layout_centerVertical="true">
+    </FrameLayout>
+
 </RelativeLayout>

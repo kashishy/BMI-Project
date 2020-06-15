@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     private static final String TAG = "Profile : ";
     private Spinner genderSpinner;
     private EditText userName, userEmail, userMobile, userWeight, userHeight, userAge;
-    private Button saveButton;
+    private Button saveButton, logoutButton;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
@@ -71,6 +71,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     public void onStart() {
         super.onStart();
         Initialised();
+        Log.d(TAG, "In start function");
 
         databaseReference.keepSynced(true);
         ArrayAdapter<CharSequence> genderArray = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
@@ -127,6 +128,19 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firebaseAuth.signOut();
+                //view.finish();
+                Toast.makeText(getContext(), "Signout Successful", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getContext(),LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void Initialised()
@@ -142,6 +156,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         saveButton = view.findViewById(R.id.saveButton_profile_frag_id);
         progressBar = view.findViewById(R.id.progressBar_profile_frag_id);
         scrollView = view.findViewById(R.id.scrollView_profile_frag_id);
+        logoutButton = view.findViewById(R.id.logoutButton_profile_frag_id);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference("users_data/"+firebaseAuth.getCurrentUser().getUid());

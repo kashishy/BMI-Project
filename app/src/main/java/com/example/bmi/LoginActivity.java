@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userPassword;
     private Button loginButton;
     private ProgressBar progressBar;
-    private TextView signupText;
+    private TextView signupText, passwordResetText;
 
 
     @Override
@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton_id);
         progressBar = findViewById(R.id.progressBar_id);
         signupText = findViewById(R.id.signup_login_id);
+        passwordResetText = findViewById(R.id.passwordReset_login_id);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +89,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        passwordResetText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_login_id, new ResetFragment()).commit();
             }
         });
     }

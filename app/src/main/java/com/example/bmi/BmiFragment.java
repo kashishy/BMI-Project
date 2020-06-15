@@ -1,6 +1,7 @@
 package com.example.bmi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class BmiFragment extends Fragment implements AdapterView.OnItemSelectedL
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
     private int selectedItem;
+    private static final String TAG = "BMI Fragment : ";
 
     private View view;
     @Nullable
@@ -48,6 +50,7 @@ public class BmiFragment extends Fragment implements AdapterView.OnItemSelectedL
 
         Initialise();
 
+        Log.d(TAG, "In start function");
         activityLevelRef.keepSynced(true);
         todayCalRef.keepSynced(true);
         perdayCalRef.keepSynced(true);

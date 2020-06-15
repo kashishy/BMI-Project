@@ -12,7 +12,7 @@
         android:id="@+id/nav_item_bmi_id"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_assessment_24"
-        android:title="BMI"
+        android:title="Details"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_item_profile_id"
