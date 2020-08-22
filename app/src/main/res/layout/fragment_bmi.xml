@@ -2,93 +2,140 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="ENTER DETAILS"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:id="@+id/heading_bmi_frag_id"
-        android:background="@color/headingBackground">
-    </TextView>
     
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_below="@id/heading_bmi_frag_id">
+        android:fillViewport="true">
         
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="30dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             
-            <!--TextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ENTER DETAILS"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:layout_marginBottom="30dp">
-            </TextView-->
+            </TextView>
             
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Your Activity Level">
+                android:text="Select Your Activity Level"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:visibility="gone"
+                android:layout_marginStart="30dp">
             </TextView>
             
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/activityLevel_bmi_frag_id"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="30dp"
+                android:visibility="gone"
+                android:layout_marginStart="30dp">
             </Spinner>
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Record Your Average Calorie Intake">
-            </TextView>
-            
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Calorie Intake"
-                android:inputType="numberDecimal"
-                android:id="@+id/calIntake_bmi_frag_id"
-                android:layout_marginBottom="20dp">
-            </EditText>
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Record Your Today Calorie Intake">
-            </TextView>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="30dp">
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:inputType="numberDecimal"
-                    android:hint="Calorie Intake"
-                    android:id="@+id/todayCalIntake_bmi_frag_id"
-                    android:layout_marginBottom="30dp">
-                </EditText>
-                
+                    android:layout_height="wrap_content"
+                    android:text="Search Food">
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:gravity="top">
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:inputType="text"
+                        android:hint="Food Name(Only English)"
+                        android:id="@+id/todayCalIntake_bmi_frag_id">
+                    </EditText>
+
+                    <Button
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:id="@+id/searchButton_BMIFrag_id"
+                        android:text="search">
+                    </Button>
+
+                </LinearLayout>
+
             </LinearLayout>
-            
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                android:id="@+id/searchedItem_layout_BMIFrag_id">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Searched Food Items"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:background="@color/headingBackground">
+                </TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/searchedRecyle_BMIFrag_id">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/selectedItem_layout_BMIFrag_id"
+                android:visibility="invisible">
+
+                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Selected Food Items"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:background="@color/headingBackground">
+                </TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectedRecyle_BMIFrag_id">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Update Details"
-                android:id="@+id/updateButton_bmi_frag_id">
+                android:id="@+id/updateButton_bmi_frag_id"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp">
             </Button>
             
         </LinearLayout>
@@ -99,6 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="invisible"
+        android:background="#F1EEEE"
         android:id="@+id/progressBar_bmi_frag_id">
     </ProgressBar>
 

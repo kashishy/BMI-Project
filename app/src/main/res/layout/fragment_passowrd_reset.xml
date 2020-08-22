@@ -116,6 +116,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="invisible"
+        android:background="#F1EEEE"
         android:id="@+id/progressBar_reset_frag_id">
     </ProgressBar>
 

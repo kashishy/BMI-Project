@@ -18,8 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -175,6 +174,16 @@
 
                 </LinearLayout>
 
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/acticity_profile_frag_id"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10">
+                </Spinner>
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,6 +213,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="invisible"
+        android:background="#F1EEEE"
         android:id="@+id/progressBar_profile_frag_id">
     </ProgressBar>
 

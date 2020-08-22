@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private Spinner genderSpinner;
+    private Spinner genderSpinner, activitySpinner;
     private EditText userName, userEmail, userMobile, userAge, userPassword, userConfirmPassword, userWeight, userHeight;
     private TextView loginText;
     private Button registerButton;
@@ -54,12 +54,19 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         loginText = findViewById(R.id.login_signup_id);
         registerButton = findViewById(R.id.register_button_id);
         progressBar = findViewById(R.id.progressBar_singup_id);
+        activitySpinner = findViewById(R.id.activity_spinner_id);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapter);
         genderSpinner.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.activity_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activitySpinner.setAdapter(adapter1);
+        activitySpinner.setOnItemSelectedListener(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference("users_data");
@@ -81,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
                                     if (task.isSuccessful()) {
 
-                                        String name, email, mobile, age, gender, weight, height;
+                                        String name, email, mobile, age, gender, weight, height, activity;
                                         name = userName.getText().toString().trim();
                                         email = userEmail.getText().toString().trim();
                                         mobile = userMobile.getText().toString().trim();
@@ -89,9 +96,10 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                                         gender = genderSpinner.getSelectedItem().toString().trim();
                                         weight = userWeight.getText().toString().trim();
                                         height = userHeight.getText().toString().trim();
+                                        activity = activitySpinner.getSelectedItem().toString().trim();
 
 
-                                        UserData userData = new UserData(name, email, mobile, age, gender, weight, height);
+                                        UserData userData = new UserData(name, email, mobile, age, gender, weight, height, activity);
 
                                         try {
                                             firebaseUser = firebaseAuth.getCurrentUser();

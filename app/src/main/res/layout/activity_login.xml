@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:background="#F1EEEE"
         android:visibility="invisible"/>
 
     <FrameLayout

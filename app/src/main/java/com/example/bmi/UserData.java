@@ -5,12 +5,12 @@ import java.util.Map;
 
 public class UserData {
 
-    private String name, email, mobile, age, gender, weight, height;
+    private String name, email, mobile, age, gender, weight, height, activity;
 
     public UserData() {
 
     }
-    public UserData(String name, String email, String mobile, String age, String gender, String weight, String height) {
+    public UserData(String name, String email, String mobile, String age, String gender, String weight, String height, String activity) {
         this.name = name;
         this.email = email;
         this.mobile = mobile;
@@ -18,6 +18,15 @@ public class UserData {
         this.gender = gender;
         this.weight = weight;
         this.height = height;
+        this.activity = activity;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
     public String getName() {
@@ -85,6 +94,7 @@ public class UserData {
         result.put("gender", gender);
         result.put("weight", weight);
         result.put("height", height);
+        result.put("activity", activity);
 
         return result;
     }

@@ -48,7 +48,7 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private static final String TAG = "Profile : ";
-    private Spinner genderSpinner;
+    private Spinner genderSpinner, activitySpinner;
     private EditText userName, userEmail, userMobile, userWeight, userHeight, userAge;
     private Button saveButton, logoutButton;
     private FirebaseAuth firebaseAuth;
@@ -78,8 +78,13 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         genderArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderArray);
         genderSpinner.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> activityArray = ArrayAdapter.createFromResource(getContext(), R.array.activity_array, android.R.layout.simple_spinner_item);
+        genderArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activitySpinner.setAdapter(activityArray);
+        activitySpinner.setOnItemSelectedListener(this);
         RetrieveUserInfo();
-        userImage.setOnClickListener(new View.OnClickListener() {
+        /*userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent=new Intent();
@@ -87,27 +92,28 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent,Gallery_Pick);
             }
-        });
+        });*/
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Log.d(TAG, "Save button\n") ;
-                final String name, mobile, age, gender, weight, height;
+                final String name, mobile, age, gender, weight, height, activity;
                 name = userName.getText().toString().trim();
                 mobile = userMobile.getText().toString().trim();
                 age = userAge.getText().toString().trim();
                 gender = genderSpinner.getSelectedItem().toString().trim();
                 weight = userWeight.getText().toString().trim();
                 height = userHeight.getText().toString().trim();
+                activity = activitySpinner.getSelectedItem().toString().trim();
                 //name = changeCase(name);
                 //name = toTitleCase(name);
                 Log.d(TAG, "Before image");
                 Log.d(TAG, "After Image called");
 
                 progressBar.setVisibility(View.VISIBLE);
-                UserData data = new UserData(name, firebaseAuth.getCurrentUser().getEmail(), mobile, age, gender, weight, height);
+                UserData data = new UserData(name, firebaseAuth.getCurrentUser().getEmail(), mobile, age, gender, weight, height, activity);
                 Map<String, Object> updateValues = data.toMap();
 
                 databaseReference.updateChildren(updateValues).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -153,6 +159,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         userWeight = view.findViewById(R.id.weight_profile_frag_id);
         userHeight = view.findViewById(R.id.height_profile_frag_id);
         genderSpinner = view.findViewById(R.id.gender_profile_frag_id);
+        activitySpinner = view.findViewById(R.id.acticity_profile_frag_id);
         saveButton = view.findViewById(R.id.saveButton_profile_frag_id);
         progressBar = view.findViewById(R.id.progressBar_profile_frag_id);
         scrollView = view.findViewById(R.id.scrollView_profile_frag_id);
@@ -241,6 +248,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                     String email = dataSnapshot.child("email").getValue().toString();
                     String weight = dataSnapshot.child("weight").getValue().toString();
                     String height = dataSnapshot.child("height").getValue().toString();
+                    String activity = dataSnapshot.child("activity").getValue().toString();
 
                     userAge.setText(age);
                     userName.setText(name);
@@ -262,6 +270,19 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                         genderSpinner.setSelection(2);
                     }
 
+                    if (activity.equals("Select")) {
+                        activitySpinner.setSelection(0);
+                    } else if(activity.equals("No Exercise")) {
+                        activitySpinner.setSelection(1);
+                    } else if (activity.equals("Light Exercise")){
+                        activitySpinner.setSelection(2);
+                    }else if (activity.equals("Moderate Exercise")){
+                        activitySpinner.setSelection(3);
+                    }else if (activity.equals("Heavy Exercise")){
+                        activitySpinner.setSelection(4);
+                    }else{
+                        activitySpinner.setSelection(5);
+                    }
                     if(dataSnapshot.hasChild("image"))
                     {
                         String image = dataSnapshot.child("image").getValue().toString();

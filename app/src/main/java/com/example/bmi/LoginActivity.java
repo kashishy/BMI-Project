@@ -2,6 +2,7 @@ package com.example.bmi;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -106,7 +107,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        if(mAuth.getCurrentUser()!=null){
+            finish();
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
     boolean isEmail(EditText text){
@@ -138,5 +144,6 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
+
 
 }

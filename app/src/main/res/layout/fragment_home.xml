@@ -1,45 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Your Data"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:id="@+id/heading_home_frag_id"
-        android:background="@color/headingBackground">
-    </TextView>
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_below="@id/heading_home_frag_id">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Your Data"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/heading_home_frag_id"
+                android:background="@color/headingBackground">
+            </TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="30dp">
-
-                <!--TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:text="Your Data"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:background="@color/headingBackground"
-                    android:layout_marginBottom="20dp">
-                </TextView-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,28 +138,6 @@
                             android:id="@+id/activityLevel_home_frag_id"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!--TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorHome"
-                        android:text="YOUR ACTIVITY LEVEL"
-                        android:background="@color/headingBackground"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:textSize="13sp">
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="Activity Level"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:id="@+id/activityLevel_home_frag_id">
-                    </TextView-->
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -188,45 +155,6 @@
                             android:id="@+id/bmr_home_frag_id"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!--TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textSize="13sp"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/textColorHome"
-                        android:textStyle="bold"
-                        android:background="@color/headingBackground"
-                        android:text="YOUR BMR">
-                    </TextView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:paddingLeft="20dp"
-                            android:textColor="#000000"
-                            android:text="Basal Metabolic Rate "
-                            android:layout_weight="1"
-                            android:gravity="center_vertical">
-                        </TextView>
-
-                        <TextView
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:id="@+id/bmr_home_frag_id">
-                        </TextView>
-
-                    </LinearLayout-->
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -235,7 +163,7 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Your Total Energy Expenditure"
+                            android:hint="Your Perday Calorie Need"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:ems="10"
@@ -243,44 +171,6 @@
                             android:textColor="@color/textColorHome"
                             android:id="@+id/totalenergy_home_frag_id"/>
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <!--TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textSize="13sp"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorHome"
-                        android:background="@color/headingBackground"
-                        android:text="YOUR ENERGY EXPENDITURE">
-                    </TextView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:paddingLeft="20dp"
-                            android:textColor="#000000"
-                            android:text="Total Energy Expenditure \n(Depending on your activity level)"
-                            android:layout_weight="1">
-                        </TextView>
-
-                        <TextView
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:id="@+id/totalenergy_home_frag_id">
-                        </TextView>
-
-                    </LinearLayout-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -299,27 +189,6 @@
                             android:id="@+id/calIntake_home_frag_id"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!--TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@color/headingBackground"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorHome"
-                        android:text="YOUR AVERAGE PERDAY CALORIE INTAKE">
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="Calories Intake"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:id="@+id/calIntake_home_frag_id">
-                    </TextView-->
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -337,44 +206,6 @@
                             android:id="@+id/todayCalIntake_home_frag_id"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!--TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorHome"
-                        android:background="@color/headingBackground"
-                        android:text="YOUR TODAY CALORIE INTAKE">
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="Calories Intake"
-                        android:paddingLeft="20dp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:id="@+id/todayCalIntake_home_frag_id">
-                    </TextView-->
-
-                    <!--LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:background="@color/headingBackground"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="20dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/textColorHome"
-                            android:text="SUGGESTIONS">
-                        </TextView>
-                    </LinearLayout-->
-
                 </LinearLayout>
 
              </LinearLayout>
@@ -382,7 +213,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -392,6 +224,33 @@
                     android:textStyle="bold"
                     android:textColor="@color/textColorHome"
                     android:text="SUGGESTIONS">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:id="@+id/imageSuggestion_id">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:textSize="25sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textStyle="bold"
+                    android:id="@+id/headingSuggestion_id">
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textSuggestion_id"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textAppearance="@android:style/TextAppearance.Medium">
                 </TextView>
 
             </LinearLayout>
@@ -404,6 +263,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="invisible"
+        android:background="#F1EEEE"
         android:id="@+id/progressBar_home_frag_id">
     </ProgressBar>
 
